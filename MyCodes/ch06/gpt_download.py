@@ -13,10 +13,6 @@ from tqdm import tqdm
 
 
 def download_and_load_gpt2(model_size, models_dir):
-    # if model already exists, return
-    if os.path.exists(models_dir):
-        return
-
     # Validate model size
     allowed_sizes = ("124M", "355M", "774M", "1558M")
     if model_size not in allowed_sizes:
@@ -31,12 +27,15 @@ def download_and_load_gpt2(model_size, models_dir):
         "model.ckpt.meta", "vocab.bpe"
     ]
 
-    # Download files
-    os.makedirs(model_dir, exist_ok=True)
-    for filename in filenames:
-        file_url = os.path.join(base_url, model_size, filename)
-        file_path = os.path.join(model_dir, filename)
-        download_file(file_url, file_path)
+
+    if not os.path.exists(model_dir):
+        print(f"Downloading GPT-2 model {model_size}...")
+        # Download files
+        os.makedirs(model_dir, exist_ok=True)
+        for filename in filenames:
+            file_url = os.path.join(base_url, model_size, filename)
+            file_path = os.path.join(model_dir, filename)
+            download_file(file_url, file_path)
 
     # Load settings and params
     tf_ckpt_path = tf.train.latest_checkpoint(model_dir)
