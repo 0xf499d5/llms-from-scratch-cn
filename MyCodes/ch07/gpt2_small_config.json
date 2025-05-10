@@ -1,0 +1,10 @@
+{
+    "vocab_size": 50257,
+    "ctx_len": 256,
+    "emb_dim": 768,
+    "n_heads": 12,
+    "n_layers": 12,
+    "dropout_rate": 0.1,
+    "with_bias": false,
+    "with_mask": true
+}
