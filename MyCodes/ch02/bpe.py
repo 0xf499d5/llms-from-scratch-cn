@@ -132,5 +132,7 @@ class BPETokenizer:
         return most_common_pair
 
     def decode(self, token_ids: List[int]) -> str:
-        outputs = [self.id_to_token[id_].decode('utf-8') for id_ in token_ids]
-        return "".join(outputs)
+        # outputs = [self.id_to_token[id_].decode('utf-8') for id_ in token_ids]
+        # return "".join(outputs)
+        outputs = [self.id_to_token[id_] for id_ in token_ids]
+        return b"".join(outputs).decode("utf-8", errors="replace")
